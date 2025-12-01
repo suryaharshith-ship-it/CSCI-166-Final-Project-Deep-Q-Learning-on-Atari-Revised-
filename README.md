@@ -1,93 +1,106 @@
-Deep Q-Learning on Atari (Pong)
+# 🎮 Deep Q-Learning on Atari (Pong)
 
-This project is my final assignment for Deep Q-Learning. I used the Pong environment (ALE/Pong-v5) and trained two agents:
+This is my final project for the DQN Atari assignment.
+I used Pong as my environment and built two agents:
 
-1. Baseline DQN – from the starter notebook
-2. Double DQN (DDQN) – my own modified version
+1. **Baseline DQN** (from the starter notebook)
+2. **Double DQN (DDQN)** as my required variant
 
-The main goal was to compare how the regular DQN learns versus the Double DQN version, plot the results, record videos, and write up what worked and what didn’t.
-
----
-
-Repository Structure
-
-notebooks/
-
-* baseline_dqn_pong.ipynb
-* ddqn_pong_variant.ipynb
-
-videos/
-
-* pong_early_random.mp4
-* pong_ddqn_learned.mp4
-
-plots/
-
-* training_curve.png
-
-README.md
+My goal was to compare how the baseline learns vs. how the DDQN version works, and to show actual learning progress with curves and videos.
 
 ---
 
-Videos
+## 📌 Project Overview
 
-Early or random gameplay video:
-(add link to pong_early_random.mp4 here)
+* **Game:** ALE/Pong-v5
+* **Frameworks:** PyTorch, Gymnasium, Stable Baselines 3 wrappers
+* **Baseline:** Regular DQN with replay buffer + target network
+* **Variant:** Double DQN (online argmax + target net evaluation)
+* **Videos:** One early/random and one trained/DDQN
 
-DDQN learned gameplay video:
-(add link to pong_ddqn_learned.mp4 here)
-
-These two videos show the agent at the start and after training.
+I followed the starter code and added the DDQN update myself.
 
 ---
 
-Learning Curves
+## 📁 Repo Layout
+
+```
+/
+├── notebooks/
+│   ├── baseline_dqn_pong.ipynb      # Baseline DQN run (starter notebook)
+│   └── ddqn_pong_variant.ipynb      # My DDQN version
+│
+├── videos/
+│   ├── pong_early_random.mp4        # Random early behavior
+│   └── pong_ddqn_learned.mp4        # Trained DDQN behavior
+│
+├── plots/
+│   └── training_curve.png           # Baseline vs DDQN curve
+│
+└── README.md
+```
+
+---
+
+## 🎥 Videos
+
+Here are the two required videos showing the agent’s behavior:
+
+| Video          | Link                            |
+| -------------- | ------------------------------- |
+| Early / Random | *(add link to the MP4 in repo)* |
+| DDQN Learned   | *(add link to the MP4 in repo)* |
+
+---
+
+## 📈 Learning Curves
 
 I plotted both:
 
-* The baseline DQN curve (from the starter notebook for now)
-* My Double DQN training curve
+* Baseline DQN (using the provided learning curve for now)
+* My DDQN training run
 
-The Double DQN learns faster and reaches better performance.
+The DDQN learns faster and reaches better reward compared to the baseline.
 
-The curve image is located in:
+See the plot here:
+
+```
 plots/training_curve.png
+```
 
 ---
 
-Important Hyperparameters
+## 🔧 Hyperparameters (important ones)
 
-Gamma: 0.99
-Learning rate: 1e-4
-Optimizer: Adam
-Replay buffer size: 10000
-Batch size: 32
-Frame stack: 4
-Target network sync: 500
-Epsilon schedule: 1.0 down to 0.01
-
----
-
-What I Did
-
-* Ran the starter notebook to get the baseline DQN results
-* Modified the loss function to implement Double DQN
-* Trained the DDQN agent on Pong
-* Logged the rewards and created the learning curves
-* Recorded the early and learned video clips
-* Prepared the comparison and wrote reflections
+* **Discount (γ):** 0.99
+* **Optimizer:** Adam, LR = 1e-4
+* **Replay buffer:** 10,000
+* **Batch size:** 32
+* **Frame stack:** 4
+* **Target sync:** 500 (for my DDQN run)
+* **Epsilon:** 1.0 → 0.01 linear decay
 
 ---
 
-Short Reflection
+## 🧪 Methods
 
-I picked Pong because it is simple to understand but still tricky for reinforcement learning because rewards are sparse. The baseline DQN did learn slowly, but the Double DQN worked better and improved more.
-
-Training time and getting epsilon decay right were the biggest challenges. If I had more time, I would try prioritized replay, different target sync intervals, or N-step returns.
+* Baseline DQN: Ran the starter notebook as-is.
+* DDQN: Modified the loss so the online net picks the best action and the target net evaluates it.
+* Logged reward curves and compared performance.
+* Recorded videos to show behavior before vs. after training.
 
 ---
 
-Starter Notebook Used
+## 📝 Reflection (Short Version)
 
-c166f25_02b_dqn_pong.ipynb
+Pong is simple but still tricky because rewards are sparse and the agent needs time to figure things out.
+The baseline improved slowly, but the DDQN version clearly did better and had more stable updates.
 
+The hardest parts were long training times and tuning epsilon decay.
+If I had more time, I’d try things like prioritized replay, different target sync rates, or maybe N-step returns.
+
+---
+
+## 🔗 Starter Notebook Used
+
+[`c166f25_02b_dqn_pong.ipynb`](ADD_LINK_HERE)
