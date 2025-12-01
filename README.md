@@ -1,106 +1,122 @@
 # 🎮 Deep Q-Learning on Atari (Pong)
 
-This is my final project for the DQN Atari assignment.
-I used Pong as my environment and built two agents:
-
-1. **Baseline DQN** (from the starter notebook)
-2. **Double DQN (DDQN)** as my required variant
-
-My goal was to compare how the baseline learns vs. how the DDQN version works, and to show actual learning progress with curves and videos.
+This project implements Deep Q-Learning on the Atari environment **ALE/Pong-v5** using PyTorch.
+I trained **my own DQN baseline** and then implemented a **Double DQN (DDQN)** variant to compare their learning behavior.
+The project follows the structure of the course starter notebook while adding my own experiments, learning curves, and gameplay videos.
 
 ---
 
 ## 📌 Project Overview
 
-* **Game:** ALE/Pong-v5
-* **Frameworks:** PyTorch, Gymnasium, Stable Baselines 3 wrappers
-* **Baseline:** Regular DQN with replay buffer + target network
-* **Variant:** Double DQN (online argmax + target net evaluation)
-* **Videos:** One early/random and one trained/DDQN
+* **Environment:** ALE/Pong-v5
+* **Frameworks:** PyTorch, Gymnasium, Stable Baselines 3 (wrappers)
+* **Baseline agent:** My own DQN run (replay + target network)
+* **Variant agent:** Double DQN (online-net action selection + target-net evaluation)
+* **Outputs:** Learning curve plots + gameplay videos (early/random vs learned)
 
-I followed the starter code and added the DDQN update myself.
+Both agents use identical preprocessing: grayscale frames, max-pooling, and **4-frame stacking**.
 
 ---
 
-## 📁 Repo Layout
+## 📁 Repository Structure
 
 ```
 /
 ├── notebooks/
-│   ├── baseline_dqn_pong.ipynb      # Baseline DQN run (starter notebook)
-│   └── ddqn_pong_variant.ipynb      # My DDQN version
+│   ├── my_ddqn_variant.ipynb        # Double DQN (main result)
+│   └── my_dqn_baseline.ipynb        # My DQN baseline run
 │
 ├── videos/
-│   ├── pong_early_random.mp4        # Random early behavior
-│   └── pong_ddqn_learned.mp4        # Trained DDQN behavior
+│   ├── pong_early_random.mp4        # Early random behavior
+│   └── pong_ddqn_learned.mp4        # Learned DDQN behavior
 │
 ├── plots/
-│   └── training_curve.png           # Baseline vs DDQN curve
-│
-└── README.md
-```
+    └── training_curve.png           # My DQN vs My DDQN curve
 
----
+```
 
 ## 🎥 Videos
 
-Here are the two required videos showing the agent’s behavior:
+| Description    | Link (add GitHub MP4 URL) |
+| -------------- | ------------------------- |
+| Early / Random | *(insert link)*           |
+| DDQN Learned   | *(insert link)*           |
 
-| Video          | Link                            |
-| -------------- | ------------------------------- |
-| Early / Random | *(add link to the MP4 in repo)* |
-| DDQN Learned   | *(add link to the MP4 in repo)* |
-
----
-
-## 📈 Learning Curves
-
-I plotted both:
-
-* Baseline DQN (using the provided learning curve for now)
-* My DDQN training run
-
-The DDQN learns faster and reaches better reward compared to the baseline.
-
-See the plot here:
-
-```
-plots/training_curve.png
-```
+These videos demonstrate the agent’s behavior from the start of training (random) and after learning meaningful control using Double DQN.
 
 ---
 
-## 🔧 Hyperparameters (important ones)
+## 📈 Learning Curve
 
-* **Discount (γ):** 0.99
-* **Optimizer:** Adam, LR = 1e-4
+I plotted the moving-average reward (last 100 episodes) for both of my runs:
+
+* **My DQN baseline (~300k frames)**
+
+  * Improves from ~–21 → ~–8.3
+* **My Double DQN (~1.1M frames)**
+
+  * Improves further to ~–6.3
+  * Shows slightly more stable late-training behavior
+
+The plot makes it clear that both agents learn, with DDQN outperforming the DQN baseline.
+
+> You can find the plot here:
+> `plots/training_curve.png`
+
+---
+
+## 🔧 Hyperparameters
+
+**Shared between DQN and DDQN:**
+
+* **γ (discount):** 0.99
+* **Optimizer:** Adam (learning rate = 1e-4)
 * **Replay buffer:** 10,000
+* **Replay start size:** 1,000
 * **Batch size:** 32
 * **Frame stack:** 4
-* **Target sync:** 500 (for my DDQN run)
-* **Epsilon:** 1.0 → 0.01 linear decay
+* **Epsilon schedule:**
+
+  * 1.0 → 0.01 linearly over 10,000 frames
+
+**DDQN-specific:**
+
+* **Target network sync:** every 500 frames
+* **Double DQN update rule:**
+
+  * Online network selects argmax action
+  * Target network evaluates the Q-target
 
 ---
 
-## 🧪 Methods
+## 🧪 Method Summary
 
-* Baseline DQN: Ran the starter notebook as-is.
-* DDQN: Modified the loss so the online net picks the best action and the target net evaluates it.
-* Logged reward curves and compared performance.
-* Recorded videos to show behavior before vs. after training.
+1. Implemented a full DQN agent with convolutional architecture (Atari-style CNN).
+2. Added Atari preprocessing, grayscale & resizing, and 4-frame stacking.
+3. Implemented DDQN by modifying the TD target:
 
----
-
-## 📝 Reflection (Short Version)
-
-Pong is simple but still tricky because rewards are sparse and the agent needs time to figure things out.
-The baseline improved slowly, but the DDQN version clearly did better and had more stable updates.
-
-The hardest parts were long training times and tuning epsilon decay.
-If I had more time, I’d try things like prioritized replay, different target sync rates, or maybe N-step returns.
+   * `argmax` from the **online** network
+   * Q-value from the **target** network
+4. Tracked learning with TensorBoard + manual logs.
+5. Recorded two videos to show behavior improvement.
 
 ---
 
-## 🔗 Starter Notebook Used
+## 📝 Reflection
+
+Pong is simple but still challenging due to sparse and delayed rewards.
+To learn reliably, the agent needs enough exploration early on and stable Q-value updates later.
+My DQN baseline showed steady improvement from completely losing to achieving ~–8.3 average score.
+
+The Double DQN variant trained longer and consistently improved further, reaching ~–6.3. This matches DDQN’s goal of reducing overestimation bias and providing smoother learning.
+The main issues I encountered were long training times and tuning epsilon decay.
+With more time, I would try prioritized replay, N-step returns, and adjusting target-sync frequency for more stability.
+
+---
+
+## 🔗 Starter Notebook Reference
+
+This project was built on top of the provided starter file:
 
 [`c166f25_02b_dqn_pong.ipynb`](ADD_LINK_HERE)
+
