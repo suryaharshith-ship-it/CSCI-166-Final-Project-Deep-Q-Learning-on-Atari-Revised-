@@ -39,8 +39,8 @@ Both agents use identical preprocessing: grayscale frames, max-pooling, and **4-
 
 | Description    | Link (add GitHub MP4 URL) |
 | -------------- | ------------------------- |
-| Early / Random | *(insert link)*           |
-| DDQN Learned   | *(insert link)*           |
+| Early / Random | (https://github.com/suryaharshith-ship-it/CSCI-166-Final-Project-Deep-Q-Learning-on-Atari-Revised-/blob/main/videos/pong_ddqn_learned.mp4)           |
+| DDQN Learned   | (https://github.com/suryaharshith-ship-it/CSCI-166-Final-Project-Deep-Q-Learning-on-Atari-Revised-/blob/main/videos/pong_early_random.mp4)
 
 These videos demonstrate the agent’s behavior from the start of training (random) and after learning meaningful control using Double DQN.
 
