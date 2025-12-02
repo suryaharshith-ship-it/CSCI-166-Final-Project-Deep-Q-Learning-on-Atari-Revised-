@@ -61,7 +61,7 @@ I plotted the moving-average reward (last 100 episodes) for both of my runs:
 The plot makes it clear that both agents learn, with DDQN outperforming the DQN baseline.
 
 > You can find the plot here:
-> `plots/training_curve.png`
+> (https://github.com/suryaharshith-ship-it/CSCI-166-Final-Project-Deep-Q-Learning-on-Atari-Revised-/blob/main/plots/plot.png)
 
 ---
 
