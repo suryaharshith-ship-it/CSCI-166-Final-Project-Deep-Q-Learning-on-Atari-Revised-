@@ -1,4 +1,4 @@
-# 🎮 Deep Q-Learning on Atari (Pong)
+# Deep Q-Learning on Atari (Pong)
 
 This project implements Deep Q-Learning on the Atari environment **ALE/Pong-v5** using PyTorch.
 I trained **my own DQN baseline** and then implemented a **Double DQN (DDQN)** variant to compare their learning behavior.
@@ -6,7 +6,7 @@ The project follows the structure of the course starter notebook while adding my
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 * **Environment:** ALE/Pong-v5
 * **Frameworks:** PyTorch, Gymnasium, Stable Baselines 3 (wrappers)
@@ -18,7 +18,7 @@ Both agents use identical preprocessing: grayscale frames, max-pooling, and **4-
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 /
@@ -35,7 +35,7 @@ Both agents use identical preprocessing: grayscale frames, max-pooling, and **4-
 
 ```
 
-## 🎥 Videos
+## Videos
 
 | Description    | Link (add GitHub MP4 URL) |
 | -------------- | ------------------------- |
@@ -46,7 +46,7 @@ These videos demonstrate the agent’s behavior from the start of training (rand
 
 ---
 
-## 📈 Learning Curve
+## Learning Curve
 
 I plotted the moving-average reward (last 100 episodes) for both of my runs:
 
@@ -65,7 +65,7 @@ The plot makes it clear that both agents learn, with DDQN outperforming the DQN 
 
 ---
 
-## 🔧 Hyperparameters
+## Hyperparameters
 
 **Shared between DQN and DDQN:**
 
@@ -89,7 +89,7 @@ The plot makes it clear that both agents learn, with DDQN outperforming the DQN 
 
 ---
 
-## 🧪 Method Summary
+## Method Summary
 
 1. Implemented a full DQN agent with convolutional architecture (Atari-style CNN).
 2. Added Atari preprocessing, grayscale & resizing, and 4-frame stacking.
@@ -102,7 +102,7 @@ The plot makes it clear that both agents learn, with DDQN outperforming the DQN 
 
 ---
 
-## 📝 Reflection
+## Reflection
 
 Pong is simple but still challenging due to sparse and delayed rewards.
 To learn reliably, the agent needs enough exploration early on and stable Q-value updates later.
@@ -114,7 +114,7 @@ With more time, I would try prioritized replay, N-step returns, and adjusting ta
 
 ---
 
-## 🔗 Starter Notebook Reference
+## Starter Notebook Reference
 
 This project was built on top of the provided starter file:
 
