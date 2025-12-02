@@ -18,22 +18,6 @@ Both agents use identical preprocessing: grayscale frames, max-pooling, and **4-
 
 ---
 
-## Repository Structure
-
-```
-/
-├── notebooks/
-│   ├── my_ddqn_variant.ipynb        # Double DQN (main result)
-│   └── my_dqn_baseline.ipynb        # My DQN baseline run
-│
-├── videos/
-│   ├── pong_early_random.mp4        # Early random behavior
-│   └── pong_ddqn_learned.mp4        # Learned DDQN behavior
-│
-├── plots/
-    └── training_curve.png           # My DQN vs My DDQN curve
-
-```
 
 ## Videos
 
